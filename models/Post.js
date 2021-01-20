@@ -25,4 +25,4 @@ const postSchema = new Schema({
 
 })
 
-module.exorts = model('Post', postSchema)
+module.exports = model('Post', postSchema)
