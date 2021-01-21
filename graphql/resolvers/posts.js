@@ -65,6 +65,9 @@ module.exports = {
       }
     },
     async likePost(_, { postId }, context) {
+      // console.log("here is the error: ")
+      // console.log(context.req.headers.authorization)
+    if(context.req.headers.authorization){
       const { username } = checkAuth(context);
 
       const post = await Post.findById(postId);
@@ -82,8 +85,32 @@ module.exports = {
 
         await post.save();
         return post;
-      } else throw new UserInputError('Post not found');
+      } else throw new UserInputError('Post not found');}
+      else{
+        const post ={
+          id: -1,
+          body: "",
+          createdAt :"",
+          username: "",
+          comments: [  {
+            id: -1,
+            createdAt: "",
+            username: "",
+            body: ""
+          }],
+          likes: [ {
+            id: -1,
+            createdAt:"",
+            username: ""
+          }],
+          likeCount: -1,
+          commentCount: -1
+        }
+      //throw new Error("authentication error")
+      return post
     }
+    }
+    
   },
   Subscription: {
     newPost: {
